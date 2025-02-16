@@ -2,7 +2,8 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { Button } from "@/components/ui/button";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
-import { Bell, Search, SlidersVertical } from "lucide-react";
+import { Bell, Kanban, Search, SlidersVertical } from "lucide-react";
+import { KanbanBoard } from "@/components/kanban-components/kanban-board";
 
 export default function Home() {
   return (
@@ -50,6 +51,9 @@ export default function Home() {
                 <SlidersVertical className="mr-1" /> Columns
               </Button>
             </div>
+          </div>
+          <div>
+            <KanbanBoard />
           </div>
         </div>
       </SidebarInset>
