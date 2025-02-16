@@ -2,6 +2,7 @@ import React from "react";
 import { Task } from "@/types/kanban";
 import TaskCard from "./task-card";
 import { MoreHorizontal, Plus } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface KanbanColumnProps {
   title: string;
@@ -10,7 +11,7 @@ interface KanbanColumnProps {
 
 export const KanbanColumn: React.FC<KanbanColumnProps> = ({ title, tasks }) => {
   return (
-    <div className="flex-1 min-w-[300px] mx-2">
+    <div className="flex-1 w-[350px] mx-2">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <div
@@ -38,11 +39,11 @@ export const KanbanColumn: React.FC<KanbanColumnProps> = ({ title, tasks }) => {
           </button>
         </div>
       </div>
-      <div className="space-y-2">
+      <ScrollArea className="space-y-2 h-screen">
         {tasks.map((task) => (
           <TaskCard key={task.id} task={task} />
         ))}
-      </div>
+      </ScrollArea>
     </div>
   );
 };

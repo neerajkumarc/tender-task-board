@@ -4,12 +4,13 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { Bell, Kanban, Search, SlidersVertical } from "lucide-react";
 import { KanbanBoard } from "@/components/kanban-components/kanban-board";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 export default function Home() {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset className="w-[calc(100vw-4rem)]  overflow-hidden">
+      <SidebarInset className="w-[calc(100vw-4rem)] overflow-hidden">
         <div className="p-4">
           <div className="flex justify-between items-center mb-4">
             <h1 className="text-white text-2xl font-semibold">Tender Tasks</h1>
@@ -52,9 +53,10 @@ export default function Home() {
               </Button>
             </div>
           </div>
-          <div>
+          <ScrollArea className="w-auto overflow-hidden">
             <KanbanBoard />
-          </div>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
         </div>
       </SidebarInset>
     </SidebarProvider>

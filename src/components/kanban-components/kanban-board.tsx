@@ -49,9 +49,53 @@ const mockTasks: Task[] = [
     },
     {
         "id": "5",
+        "title": "Site Preparation for Industrial Project D",
+        "description": "Tender for site preparation works for the upcoming industrial park at 321 Birch Boulevard.",
+        "status": "Not Started",
+        "assignee": "John Doe",
+        "dueDate": "2024-12-22",
+        "priority": "High",
+        "comments": 2,
+        "attachments": 0
+    },
+    {
+        "id": "7",
+        "title": "Site Preparation for Industrial Project D",
+        "description": "Tender for site preparation works for the upcoming industrial park at 321 Birch Boulevard.",
+        "status": "Not Started",
+        "assignee": "John Doe",
+        "dueDate": "2024-12-22",
+        "priority": "High",
+        "comments": 2,
+        "attachments": 0
+    },
+    {
+        "id": "8",
         "title": "Landscaping for Community Park E",
         "description": "Request for proposals for landscaping works in the new community park located at 654 Spruce Road.",
         "status": "Not Started",
+        "assignee": "John Doe",
+        "dueDate": "2024-12-22",
+        "priority": "High",
+        "comments": 1,
+        "attachments": 0
+    },
+    {
+        "id": "9",
+        "title": "Landscaping for Community Park E",
+        "description": "Request for proposals for landscaping works in the new community park located at 654 Spruce Road.",
+        "status": "In Progress",
+        "assignee": "John Doe",
+        "dueDate": "2024-12-22",
+        "priority": "High",
+        "comments": 1,
+        "attachments": 0
+    },
+    {
+        "id": "10",
+        "title": "Landscaping for Community Park E",
+        "description": "Request for proposals for landscaping works in the new community park located at 654 Spruce Road.",
+        "status": "In Progress",
         "assignee": "John Doe",
         "dueDate": "2024-12-22",
         "priority": "High",
@@ -67,7 +111,7 @@ export const KanbanBoard: React.FC = () => {
   const completed = mockTasks.filter((task) => task.status === "Completed");
 
   return (
-    <div className="flex gap-4 min-h-screen">
+    <div className="flex gap-4">
       <div className="p-4 bg-black rounded-lg transition-colors duration-200 border border-transparent hover:border-neutral-700/50">
         <KanbanColumn title="Todo List" tasks={todoList} />
       </div>
