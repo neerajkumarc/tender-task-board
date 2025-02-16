@@ -68,16 +68,16 @@ export const KanbanBoard: React.FC = () => {
 
   return (
     <div className="flex gap-4 min-h-screen">
-      <div className="p-4 bg-black rounded-lg">
+      <div className="p-4 bg-black rounded-lg transition-colors duration-200 border border-transparent hover:border-neutral-700/50">
         <KanbanColumn title="Todo List" tasks={todoList} />
       </div>
-      <div className="p-4 bg-black rounded-lg">
+      <div className="p-4 bg-black rounded-lg transition-colors duration-200 border border-transparent hover:border-neutral-700/50">
         <KanbanColumn title="Not Started" tasks={notStarted} />
       </div>
-      <div className="p-4 bg-black rounded-lg">
+      <div className="p-4 bg-black rounded-lg transition-colors duration-200 border border-transparent hover:border-neutral-700/50">
         <KanbanColumn title="In Progress" tasks={inProgress} />
       </div>
-      <div className="p-4 bg-black rounded-lg">
+      <div className="p-4 bg-black rounded-lg transition-colors duration-200 border border-transparent hover:border-neutral-700/50">
         <KanbanColumn title="Completed" tasks={completed} />
       </div>
     </div>

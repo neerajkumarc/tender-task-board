@@ -6,7 +6,7 @@ interface TaskCardProps {
   task: Task;
 }
 const TaskCard: React.FC<TaskCardProps> = ({ task }) => (
-  <div className="bg-neutral-900 rounded-lg p-4 mb-3">
+  <div className="bg-neutral-900 rounded-lg p-4 mb-3 transition-colors duration-200 hover:bg-neutral-800 cursor-pointer">
     <div className="flex justify-between items-start mb-1">
       <div
         className={`flex items-center gap-2 px-2 rounded-full ${
