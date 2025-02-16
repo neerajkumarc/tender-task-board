@@ -1,18 +1,8 @@
 "use client";
 import React, { DragEvent, useEffect, useState } from "react";
 import { KanbanColumn } from "./kanban-columns";
-import { Task } from "@/types/kanban";
+import { BoardData, ColumnId, Task } from "@/types/kanban";
 import { fetchBoardData } from "@/lib/utils";
-
-interface BoardData {
-  todo: Task[];
-  inProgress: Task[];
-  notStarted: Task[];
-  completed: Task[];
-}
-
-type ColumnId = keyof BoardData;
-
 
 export const KanbanBoard: React.FC = () => {
   const [tasks, setTasks] = useState<BoardData | null>(null);
