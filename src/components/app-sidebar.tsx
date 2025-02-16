@@ -41,7 +41,7 @@ const items = [
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props} className="bg-black">
-      <SidebarHeader className="flex justify-end items-end">
+      <SidebarHeader className="flex justify-end items-end py-5">
         <SidebarTrigger />
       </SidebarHeader>
       <SidebarContent>
