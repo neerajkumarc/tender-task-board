@@ -1,12 +1,20 @@
+"use client";
 import { Task } from "@/types/kanban";
 import { Separator } from "@/components/ui/separator";
 import { MessageSquare, MoreHorizontal, Paperclip } from "lucide-react";
+import { DragEvent } from "react";
 
 interface TaskCardProps {
   task: Task;
+  onDragStart: (e: DragEvent<HTMLDivElement>, task: Task) => void;
+  onDragEnd: (e: DragEvent<HTMLDivElement>) => void;
 }
-const TaskCard: React.FC<TaskCardProps> = ({ task }) => (
-  <div className="bg-neutral-900 rounded-lg p-4 mb-3 transition-colors duration-200 hover:bg-neutral-800 cursor-pointer">
+const TaskCard: React.FC<TaskCardProps> = ({ task, onDragStart, onDragEnd }) => (
+  <div
+  draggable
+  onDragStart={(e) => onDragStart(e, task)}
+  onDragEnd={onDragEnd}
+  className="bg-neutral-900 rounded-lg p-4 mb-3 transition-colors duration-200 hover:bg-neutral-800 cursor-pointer">
     <div className="flex justify-between items-start mb-1">
       <div
         className={`flex items-center gap-2 px-2 rounded-full ${

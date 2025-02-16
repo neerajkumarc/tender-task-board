@@ -1,128 +1,214 @@
-import React from "react";
+"use client";
+import React, { DragEvent, useEffect, useState } from "react";
 import { KanbanColumn } from "./kanban-columns";
 import { Task } from "@/types/kanban";
 
-const mockTasks: Task[] = [
-    {
-        "id": "1",
-        "title": "Foundation Construction for Residential Project A",
-        "description": "Tender for the foundation construction of a two-story residential building located at 123 Maple Street.",
-        "status": "Not Started",
-        "assignee": "John Doe",
-        "dueDate": "2024-12-22",
-        "priority": "High",
-        "comments": 5,
-        "attachments": 2
-    },
-    {
-        "id": "2",
-        "title": "Roof Installation for Commercial Project B",
-        "description": "Invitation to tender for the roof installation for the new office building at 456 Oak Avenue.",
-        "status": "Todo List",
-        "assignee": "John Doe",
-        "dueDate": "2024-12-22",
-        "priority": "High",
-        "comments": 3,
-        "attachments": 1
-    },
-    {
-        "id": "3",
-        "title": "Interior Finishing for Apartment Complex C",
-        "description": "Completed tender for interior finishing work on a 50-unit apartment complex at 789 Pine Court.",
-        "status": "Completed",
-        "assignee": "John Doe",
-        "dueDate": "2024-12-22",
-        "priority": "High",
-        "comments": 0,
-        "attachments": 0
-    },
-    {
-        "id": "4",
-        "title": "Site Preparation for Industrial Project D",
-        "description": "Tender for site preparation works for the upcoming industrial park at 321 Birch Boulevard.",
-        "status": "Not Started",
-        "assignee": "John Doe",
-        "dueDate": "2024-12-22",
-        "priority": "High",
-        "comments": 2,
-        "attachments": 0
-    },
-    {
-        "id": "5",
-        "title": "Site Preparation for Industrial Project D",
-        "description": "Tender for site preparation works for the upcoming industrial park at 321 Birch Boulevard.",
-        "status": "Not Started",
-        "assignee": "John Doe",
-        "dueDate": "2024-12-22",
-        "priority": "High",
-        "comments": 2,
-        "attachments": 0
-    },
-    {
-        "id": "7",
-        "title": "Site Preparation for Industrial Project D",
-        "description": "Tender for site preparation works for the upcoming industrial park at 321 Birch Boulevard.",
-        "status": "Not Started",
-        "assignee": "John Doe",
-        "dueDate": "2024-12-22",
-        "priority": "High",
-        "comments": 2,
-        "attachments": 0
-    },
-    {
-        "id": "8",
-        "title": "Landscaping for Community Park E",
-        "description": "Request for proposals for landscaping works in the new community park located at 654 Spruce Road.",
-        "status": "Not Started",
-        "assignee": "John Doe",
-        "dueDate": "2024-12-22",
-        "priority": "High",
-        "comments": 1,
-        "attachments": 0
-    },
-    {
-        "id": "9",
-        "title": "Landscaping for Community Park E",
-        "description": "Request for proposals for landscaping works in the new community park located at 654 Spruce Road.",
-        "status": "In Progress",
-        "assignee": "John Doe",
-        "dueDate": "2024-12-22",
-        "priority": "High",
-        "comments": 1,
-        "attachments": 0
-    },
-    {
-        "id": "10",
-        "title": "Landscaping for Community Park E",
-        "description": "Request for proposals for landscaping works in the new community park located at 654 Spruce Road.",
-        "status": "In Progress",
-        "assignee": "John Doe",
-        "dueDate": "2024-12-22",
-        "priority": "High",
-        "comments": 1,
-        "attachments": 0
-    }
-];
+interface BoardData {
+  todo: Task[];
+  inProgress: Task[];
+  notStarted: Task[];
+  completed: Task[];
+}
 
+type ColumnId = keyof BoardData;
+
+
+const fetchBoardData = (): Promise<any> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        todo: [
+          {
+            id: "todo-1",
+            title: "Hospital Wing Extension Tender",
+            description: "New 3-story extension for City General Hospital's emergency department",
+            status: "Not Started",
+            assignee: "/api/placeholder/32/32",
+            dueDate: "15 Mar 24",
+            priority: "High",
+            comments: 8,
+            attachments: 5,
+          },
+          {
+            id: "todo-2",
+            title: "Metro Station Renovation",
+            description: "Comprehensive renovation of Central Station including platform upgrades",
+            status: "In Progress",
+            assignee: "/api/placeholder/32/32",
+            dueDate: "28 Mar 24",
+            priority: "Medium",
+            comments: 4,
+            attachments: 7,
+          },
+          {
+            id: "todo-3",
+            title: "Solar Farm Development",
+            description: "50MW solar farm development in Western District",
+            status: "Not Started",
+            assignee: "/api/placeholder/32/32",
+            dueDate: "10 Apr 24",
+            priority: "High",
+            comments: 6,
+            attachments: 4,
+          }
+        ],
+        inProgress: [
+          {
+            id: "progress-1",
+            title: "School Complex Construction",
+            description: "New K-12 educational complex with sports facilities",
+            status: "In Progress",
+            assignee: "/api/placeholder/32/32",
+            dueDate: "05 Mar 24",
+            priority: "High",
+            comments: 15,
+            attachments: 9,
+          },
+          {
+            id: "progress-2",
+            title: "Bridge Maintenance Contract",
+            description: "5-year maintenance contract for Harbor Bridge",
+            status: "In Progress",
+            assignee: "/api/placeholder/32/32",
+            dueDate: "22 Mar 24",
+            priority: "Medium",
+            comments: 7,
+            attachments: 6,
+          },
+          {
+            id: "progress-3",
+            title: "Commercial Tower Design",
+            description: "40-story commercial tower in Business District",
+            status: "In Progress",
+            assignee: "/api/placeholder/32/32",
+            dueDate: "18 Apr 24",
+            priority: "Low",
+            comments: 11,
+            attachments: 8,
+          }
+        ],
+        notStarted: [
+          {
+            id: "not-started-1",
+            title: "Airport Terminal Expansion",
+            description: "International terminal expansion with 12 new gates",
+            status: "Not Started",
+            assignee: "/api/placeholder/32/32",
+            dueDate: "30 Mar 24",
+            priority: "Critical",
+            comments: 3,
+            attachments: 2,
+          },
+          {
+            id: "not-started-2",
+            title: "Waste Treatment Facility",
+            description: "Modern waste treatment plant with recycling capabilities",
+            status: "Not Started",
+            assignee: "/api/placeholder/32/32",
+            dueDate: "12 Apr 24",
+            priority: "High",
+            comments: 5,
+            attachments: 4,
+          },
+          {
+            id: "not-started-3",
+            title: "Public Park Redevelopment",
+            description: "Central Park renovation including new amenities",
+            status: "Not Started",
+            assignee: "/api/placeholder/32/32",
+            dueDate: "25 Apr 24",
+            priority: "Medium",
+            comments: 9,
+            attachments: 5,
+          }
+        ],
+        completed: [
+          {
+            id: "completed-1",
+            title: "Highway Junction Upgrade",
+            description: "Major intersection upgrade with smart traffic systems",
+            status: "Completed",
+            assignee: "/api/placeholder/32/32",
+            dueDate: "01 Mar 24",
+            priority: "High",
+            comments: 23,
+            attachments: 12,
+          },
+          {
+            id: "completed-2",
+            title: "Shopping Mall Renovation",
+            description: "Interior and exterior renovation of City Center Mall",
+            status: "Completed",
+            assignee: "/api/placeholder/32/32",
+            dueDate: "28 Feb 24",
+            priority: "Medium",
+            comments: 18,
+            attachments: 10,
+          },
+          {
+            id: "completed-3",
+            title: "Residential Complex",
+            description: "200-unit residential development with amenities",
+            status: "Completed",
+            assignee: "/api/placeholder/32/32",
+            dueDate: "15 Feb 24",
+            priority: "High",
+            comments: 16,
+            attachments: 8,
+          }
+        ]
+      });
+    }, 1500);
+  });
+};
 export const KanbanBoard: React.FC = () => {
-  const todoList = mockTasks.filter((task) => task.status === "Todo List");
-  const notStarted = mockTasks.filter((task) => task.status === "Not Started");
-  const inProgress = mockTasks.filter((task) => task.status === "In Progress");
-  const completed = mockTasks.filter((task) => task.status === "Completed");
+  const [tasks, setTasks] = useState<BoardData | null>(null);
+  useEffect(() => {
+    fetchBoardData().then((data) => {
+      setTasks(data);
+    });
+  }, []);
+  const handleDrop = (column: ColumnId) => (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const task = JSON.parse(e.dataTransfer.getData("text/plain")) as Task;
+
+    if (!tasks) return;
+
+    const sourceColumn = Object.keys(tasks).find((col) =>
+      tasks[col as ColumnId].some((t) => t.id === task.id)
+    ) as ColumnId;
+
+    if (sourceColumn === column) return;
+
+    setTasks((prev) => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        [sourceColumn]: prev[sourceColumn].filter((t) => t.id !== task.id),
+        [column]: [
+          ...prev[column],
+          {
+            ...task,
+            status: column === "completed" ? "Completed" : column === "inProgress" ? "In Progress" : "Not Started",
+          },
+        ],
+      };
+    });
+  };
 
   return (
     <div className="flex gap-4">
       <div className="p-4 bg-black rounded-lg transition-colors duration-200 border border-transparent hover:border-neutral-700/50">
-        <KanbanColumn title="Todo List" tasks={todoList} />
+        <KanbanColumn title="Todo List" tasks={tasks?.todo || []} onDrop={handleDrop("todo")} />
       </div>
       <div className="p-4 bg-black rounded-lg transition-colors duration-200 border border-transparent hover:border-neutral-700/50">
-        <KanbanColumn title="Not Started" tasks={notStarted} />
+        <KanbanColumn title="Not Started" tasks={tasks?.notStarted || []} onDrop={handleDrop("notStarted")} />
       </div>
       <div className="p-4 bg-black rounded-lg transition-colors duration-200 border border-transparent hover:border-neutral-700/50">
-        <KanbanColumn title="In Progress" tasks={inProgress} />
+        <KanbanColumn title="In Progress" tasks={tasks?.inProgress || []} onDrop={handleDrop("inProgress")} />
       </div>
       <div className="p-4 bg-black rounded-lg transition-colors duration-200 border border-transparent hover:border-neutral-700/50">
-        <KanbanColumn title="Completed" tasks={completed} />
+        <KanbanColumn title="Completed" tasks={tasks?.completed || []} onDrop={handleDrop("completed")} />
       </div>
     </div>
   );

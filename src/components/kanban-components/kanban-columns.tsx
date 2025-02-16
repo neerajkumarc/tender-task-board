@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { DragEvent } from "react";
 import { Task } from "@/types/kanban";
 import TaskCard from "./task-card";
 import { MoreHorizontal, Plus } from "lucide-react";
@@ -7,11 +8,20 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 interface KanbanColumnProps {
   title: string;
   tasks: Task[];
+  onDrop: (e: DragEvent<HTMLDivElement>) => void;
 }
 
-export const KanbanColumn: React.FC<KanbanColumnProps> = ({ title, tasks }) => {
+export const KanbanColumn: React.FC<KanbanColumnProps> = ({
+  title,
+  tasks,
+  onDrop,
+}) => {
   return (
-    <div className="flex-1 w-[350px] mx-2">
+    <div
+      onDragOver={(e) => e.preventDefault()}
+      onDrop={onDrop}
+      className="flex-1 w-[350px] mx-2"
+    >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <div
@@ -41,7 +51,14 @@ export const KanbanColumn: React.FC<KanbanColumnProps> = ({ title, tasks }) => {
       </div>
       <ScrollArea className="space-y-2 h-screen">
         {tasks.map((task) => (
-          <TaskCard key={task.id} task={task} />
+          <TaskCard
+            key={task.id}
+            task={task}
+            onDragStart={(e, task) =>
+              e.dataTransfer.setData("text/plain", JSON.stringify(task))
+            }
+            onDragEnd={() => {}}
+          />
         ))}
       </ScrollArea>
     </div>
