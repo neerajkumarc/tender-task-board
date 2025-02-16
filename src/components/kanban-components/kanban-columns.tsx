@@ -4,10 +4,12 @@ import { Task } from "@/types/kanban";
 import TaskCard from "./task-card";
 import { MoreHorizontal, Plus } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { TaskSkeleton } from "./task-card-skeleton";
 
 interface KanbanColumnProps {
   title: string;
   tasks: Task[];
+  loading: boolean;
   onDrop: (e: DragEvent<HTMLDivElement>) => void;
 }
 
@@ -15,6 +17,7 @@ export const KanbanColumn: React.FC<KanbanColumnProps> = ({
   title,
   tasks,
   onDrop,
+  loading
 }) => {
   return (
     <div
@@ -50,7 +53,15 @@ export const KanbanColumn: React.FC<KanbanColumnProps> = ({
         </div>
       </div>
       <ScrollArea className="space-y-2 h-screen">
-        {tasks.map((task) => (
+      {loading ? (
+        <>
+          <TaskSkeleton />
+          <TaskSkeleton />
+          <TaskSkeleton />
+        </>
+      ) : (
+        <>
+         {tasks.map((task) => (
           <TaskCard
             key={task.id}
             task={task}
@@ -60,6 +71,9 @@ export const KanbanColumn: React.FC<KanbanColumnProps> = ({
             onDragEnd={() => {}}
           />
         ))}
+        </>
+      )}
+       
       </ScrollArea>
     </div>
   );
