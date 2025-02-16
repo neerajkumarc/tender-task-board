@@ -2,7 +2,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { Button } from "@/components/ui/button";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
-import { Bell, Kanban, Search, SlidersVertical } from "lucide-react";
+import { Bell, Search, SlidersVertical } from "lucide-react";
 import { KanbanBoard } from "@/components/kanban-components/kanban-board";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
